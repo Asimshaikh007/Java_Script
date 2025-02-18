@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM</title>
+</head>
+<body>
+    <p id ="getelebyid">Hello JS</p>
+    <p class="getelebyclass">Hello Node</p>
+    <article>arctic</article>
+    <ul>
+        <li class="item">a</li>
+        <li class="item">b</li>
+        <li class="item">c</li>
+    </ul>
+    <p id="mainp1"></p>
+    <p id="mainp2"></p>
+    <p id="mainp3"></p>
+    <p id="mainp4"></p>
+    <p id="appendparent"></p>
+    <p id="eventid">ParaButton</p>
+    <input type="text" id="eventkey" placeholder="Enter Key">
+    <p id="keypress"></p>
+</body>
+<script>
+    //accessing
+    // let content = document.getElementById("getelebyid");
+    // let contenttext = document.getElementById("getelebyid").textContent;
+    // console.log("getElementById:", content);
+    // console.log("getElementById:", contenttext);
+
+    // let content1 = document.getElementsByClassName("getelebyclass");
+    // let content2 = document.getElementsByClassName("getelebyclass")[0]; // Get the first element with the class
+    // console.log("getElementsByClassName:", content1);
+    // console.log("getElementsByClassName:", content2);
+
+    // let c = document.getElementsByTagName("article");
+    // console.log("getElementsByTagName:", c);
+    // console.log("getElementsByTagName:", c[0]); // Get the first element with the tag
+
+    //'selector': A valid CSS selector (for example, .class, #id, div, input[type="text"], etc.).
+    // let c1 = document.querySelector("p.getelebyclass");
+    // console.log("querySelector:", c1);
+    // let c2 = document.querySelector("p#getelebyid");
+    // console.log("querySelector:", c2);
+
+    // let c3 = document.querySelectorAll("li.item");
+    // console.log("querySelectorAll:", c3);
+    // console.log("querySelectorAll:", c3[0]);
+    // console.log("querySelectorAll:", c3[1]);
+    // console.log("querySelectorAll:", c3[2]);
+
+    //manipulation
+
+    //Change text content:
+    document.getElementById("manip1").textContent = "testmsg";
+    // Change HTML content:
+    document.getElementById("manip2").innerHTML = "<em>emphasized</em>";
+    //Change attributes:
+    document
+      .getElementById("manip3")
+      .setAttribute("style", "background-color:Tomato");
+    document.getElementById("manip3").textContent = "testing";
+    //Change styles:
+    document.getElementById("manip4").style.border = "2px solid SlateBlue";
+    document.getElementById("manip4").textContent = "testval";
+
+    //Creating/Removing Elements:
+
+    //Create new elements:
+    let newDiv = document.createElement("div");
+    newDiv.innerHTML = "<u>test_text<u>";
+    // Append elements:
+    document.getElementById("appendparent").append(newDiv);
+
+        document
+      .getElementById("eventid")
+      .addEventListener("mouseover", function () {
+        document.getElementById("eventid").textContent = "testing_values";
+        document.getElementById("eventid").style.backgroundColor =
+          "MediumVioletRed";
+      });
+    document
+      .getElementById("eventid")
+      .addEventListener("mouseout", function () {
+        document.getElementById("eventid").textContent = "ParaButton";
+        document.getElementById("eventid").style.backgroundColor =
+          "transparent";
+      });
+
+    document.getElementById("eventkey").addEventListener("keydown", logKey);
+    function logKey(e) {
+      document.getElementById("keypress").textContent = `Key=${e.key}`;
+    }
+</script>
+</html>
