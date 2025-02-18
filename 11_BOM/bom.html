@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BOM</title>
+  </head>
+  <body>
+    <pre>
+        /* The Browser Object Model (BOM) allows JavaScript to interact with the browser
+beyond just the HTML document (DOM). It provides access to browser-related
+functions, such as controlling the window, handling navigation, and managing
+user interactions. */
+    </pre>
+    <h1>Browser object model</h1>
+    <button id="close">close</button>
+    <button id="link">React.dev</button>
+    <p id="msg"></p>
+    <a href="f1.html">f1.html</a>
+    <a href="cookieview.html">cookieview.html</a>
+    <a href="sessionview.html">sessionview.html</a>
+    <button id="forward">forward</button>
+    <button id="f+2">forward 2</button>
+  </body>
+  <script>
+    //window: represents browser window
+    console.log("window height:", window.innerHeight);
+    console.log("window width:", window.innerWidth);
+
+    window.alert("helloworld");
+    window.confirm("confirm action.");
+    var d1 = prompt("enter msg");
+    document.getElementById("msg").innerText = d1;
+
+    document.getElementById("link").addEventListener("click", () => {
+      window.open("https://react.dev/", "_blank");
+    });
+
+    document.getElementById("close").addEventListener("click", () => {
+      window.close(); //close current window
+    });
+
+    //navigator
+
+    console.log("browser.info:", navigator.userAgent);
+    console.log("user.lang:", navigator.language);
+    console.log("os.platform:", navigator.platform);
+    console.log("check if online", navigator.onLine);
+    console.log("if cookies:", navigator.cookieEnabled);
+    console.log("if chrome:", navigator.userAgent.includes("Chrome"));
+
+    //screen
+    console.log("screen.width:", screen.width);
+    console.log("screen.height:", screen.height);
+    console.log("screen.availWidth:", screen.availWidth); // Available width/height excluding UI elements
+    console.log("screen.availHeight:", screen.availHeight);
+    console.log("screen.colorDepth", screen.colorDepth);
+    console.log("screen.pixelDepth", screen.pixelDepth);
+
+    //location
+    console.log("location.href:", location.href);
+    console.log("location.hostname:", location.hostname);
+    console.log("location.pathname:", location.pathname);
+    console.log("location.protocol:", location.protocol);
+    console.log("location.port:", location.port);
+
+    //history
+
+    //history.back(); //go to previous page
+    // history.forward(); //go forward to next page
+    document.getElementById("forward").addEventListener("click", () => {
+      history.forward();
+    });
+    // history.go(-2); //go back two pages
+    // history.go(2); //go forward two pages
+    document.getElementById("f+2").addEventListener("click", () => {
+      history.go(2);
+    });
+    console.log("history.lenght:", history.length);
+
+    //cookies
+
+    //set cookie
+    function setCookie(name, val, days) {
+      let exp = "";
+      if (days) {
+        let date = new Date();
+        date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+        //days * hrs * min * sec * millisec
+        exp = `; expire=${date.toUTCString()}`;
+      }
+      document.cookie = name + "=" + val + exp + "; path=/";
+      //path=/ ensures accessible to all pages;
+    }
+    setCookie("username", "prajwal", 1);
+
+    //view cookie
+    if (document.cookie) {
+      console.log("cookie=", document.cookie);
+    }
+
+    function deleteCookie(name) {
+      document.cookie =
+        name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+    }
+    //deleteCookie("username")
+
+    //confirm if deleted or  is unset
+    if (document.cookie) {
+      if (document.cookie.name == "username") {
+        console.log("cookie=", document.cookie);
+      }
+    } else {
+      console.log("cookie expired");
+    }
+
+    //session
+    // setItem(key, value): Store data.
+    let exptime = new Date();
+    exptime.setTime(Date.now() + 5 * 1000);
+    sessionStorage.setItem(
+      "password",
+      JSON.stringify({ value: "1234", expiresAt: exptime })
+    );
+
+    window.setTimeout(() => {
+      alert(`6 sec completed`);
+    }, 6000);
+
+    // window.setTimeout(() => {
+    //   alert(`sessionStorage.key(): ${sessionStorage.key(0)}`);
+    // }, 6000);
+
+    // getItem(key): Retrieve data.
+    console.log("session:", sessionStorage.getItem("password"));
+    // removeItem(key): Remove specific data.
+    //sessionStorage.removeItem("password");
+    console.log(
+      "sessionStorage.removeItem:",
+      sessionStorage.getItem("password")
+    );
+    // clear(): Clear all session data.
+    //sessionStorage.clear();
+    console.log("sessionStorage.clear();", sessionStorage.key(0));
+    // length: Get the number of stored items.
+
+    console.log("sessionStorage.length;", sessionStorage.length);
+    // key(index): Get a key by its index
+    console.log("sessionStorage.key();", sessionStorage.key(0));
+  </script>
+</html>
